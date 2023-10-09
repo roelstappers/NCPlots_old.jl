@@ -8,11 +8,16 @@ Plots NetCdf files using CF convention
 ```julia
 using NCPlots, GLMakie, NCDatasets
 
-ds = Dataset("era5_dataset.nc") 
-msl = ds["msl"] 
+ds = Dataset("east_domain.nc") 
+lons = ds["longitude"][:]
+lats = ds["latitidue"][:]
+data = ds["t"][:,:,65]
 
 fig = Figure()
-plot3(fig[1,1], msl) 
+ax = LScene(fig[1,1], lons,lats,data)
+surface2!(ax,lons,lats,data) 
+
+![](east_domain.png)
 ```
 
 
