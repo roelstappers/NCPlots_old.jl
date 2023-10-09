@@ -20,16 +20,18 @@ surface2!(ax,lons,lats,data)
 
 ![](east_domain.png)
 
-
-
 ## Multiple plots 
 
 ```julia
-plot3(fig[1,1],msl)
-plot3(fig[1,2],t)
-plot3(fig[2,1],u) 
-plot3(fig[2,2],v) 
+ds2 = Dataset("west_domain.nc") 
+lons2 = ds["longitude"][:]
+lats2 = ds["latitidue"][:]
+data2 = ds["t"][:,:,65]
+surface2!(ax,lons2,lat2,data2)
 ```
+
+![](east_west_domain.png)
+
 
 ## Animations 
 
