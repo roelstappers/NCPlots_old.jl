@@ -16,9 +16,10 @@ data = ds["t"][:,:,65]
 fig = Figure()
 ax = LScene(fig[1,1], lons,lats,data)
 surface2!(ax,lons,lats,data) 
+```
 
 ![](east_domain.png)
-```
+
 
 
 ## Multiple plots 
