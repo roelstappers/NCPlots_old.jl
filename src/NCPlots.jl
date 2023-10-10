@@ -30,7 +30,22 @@ function surface3!(ax,var::CommonDataModel.AbstractVariable{T}; kwargs...) where
     surface!(ax,x,y,z,color=data; kwargs...) 
 end
 
- 
+
+## Unfinished level and time should become sliders
+function surface(ds::NCDataset; kwargs...)
+
+    vars = setdiff(keys(ds),dimnames(ds))
+    dsview = view(ds,level=1,time=1)
+    data  = dsview["pv"]
+   
+    fig = Figure()
+    menu = Menu(fig[1,1],options=vars)
+    ax = Axis3(fig[2,1],aspect=(1,1,1),viewmode=:fit)
+    hidedecorations!(ax)
+    hidespines!(ax)
+    plt = surface3!(ax,data; kwargs...)
+    return fig,ax,plt
+end 
 
 
 """
