@@ -1,17 +1,36 @@
 module NCPlots
 
-using GLMakie
+using GLMakie, NCDatasets, CommonDataModel
 
-export surface2!
+export surface2!, surface3!
 
-
-function surface2!(ax,lons,lats,var; kwargs...)
-    #lons = lons[:] # ds["longitude"]
-    #lats = lats[:] # ds["latitude"]
-    data = nomissing(var) 
+function surface2!(ax,lons,lats,data; kwargs...)
     x,y,z = lonlat2xyz(lons,lats)    
     surface!(ax, x,y,z ,color=data; kwargs...) 
-end 
+end
+
+function surface3!(ax,var::CommonDataModel.AbstractVariable{T}; kwargs...) where T
+    lons = var["longitude"][:]
+    data = nomissing(collect(var))
+    lats = var["latitude"][:]
+    
+    # Add extra lon point to close surface for global fields
+    # could make data a circular buffer instead
+    if lons isa Vector  
+        println("appending")
+        dlon = lons[2]-lons[1]  # Grid spacing
+        if (lons[end] + dlon) % 360 == 0
+            println("now")
+            append!(lons, lons[end]+dlon)
+            data = vcat(data,data[1:1,:])
+        end
+    end  
+
+    x,y,z = lonlat2xyz(lons,lats)
+    surface!(ax,x,y,z,color=data; kwargs...) 
+end
+
+ 
 
 
 """

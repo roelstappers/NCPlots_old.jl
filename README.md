@@ -3,6 +3,21 @@
 
 Plots NetCdf files using CF convention
 
+# Example PV era5
+```
+ds = Dataset("pv.nc)
+data = view(ds,level=1,time=1)
+fig = Figure()
+ax = Axis3(fig[1,1])
+surface3!(ax,data["pv"],colormap=:RdBu,colorrange=(-0.02,0.02))
+```
+
+
+![](docs/pv500.gif)
+
+
+# Geopotential movie
+
 ![](docs/geop2.gif)
 
 
