@@ -40,10 +40,14 @@ function surface(ds::NCDataset; kwargs...)
    
     fig = Figure()
     menu = Menu(fig[1,1],options=vars)
-    ax = Axis3(fig[2,1],aspect=(1,1,1),viewmode=:fit)
-    hidedecorations!(ax)
-    hidespines!(ax)
+  #   ax = Axis3(fig[2,1],aspect=(1,1,1),viewmode=:fit,protrusions=0)
+     ax = LScene(fig[2,1],show_axis=false)
+    
+    #hidedecorations!(ax)
+    #hidespines!(ax)
     plt = surface3!(ax,data; kwargs...)
+    zoom!(ax.scene,0.7)
+
     return fig,ax,plt
 end 
 
