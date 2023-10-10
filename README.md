@@ -35,6 +35,34 @@ surface2!(ax,lons2,lat2,data2)
 
 ## Animations 
 
+```
+using NCDatasets, GLMakie, NCPlots
+ds = Dataset("geopotential_2020.nc")
+sz = ds["z"]
+lons = ds["longitude"]
+lats = ds["latitude"]
+x,y,z = NCPlots.lonlat2xyz(lons,lats)
+t = Obserable(1)
+geop = @lift(nomissing(dsz[:,:,$t]))
+xg = @lift($geop.*x)
+yg = @lift($geop.*y)
+zg = @lift($geop.*z)
+
+fig = Figure()
+ax = Axis3(fig[1,1], viewmode=:fit)
+surface!(ax,xg,yg,zg,color=geop,colormap=:RdBu)
+maxg = maximum(geop.val)
+hidedecorations!(ax)
+hidespines!(ax)
+ax.protrusions=0
+
+record(fig,"geop.mp4", 1:100,framerate=10) do ti
+  t[]=ti
+end
+```
+
+![](docs/geop.mp4)
+
 ```julia
 ax, surf ,t = plot3(fig[1,1],msl)
 
