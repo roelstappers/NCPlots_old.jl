@@ -76,12 +76,31 @@ dep = @lift($geop .- mean($geop,dims=1))
 ![](docs/geop_depmean.gif)
 
 
-```julia
-ax, surf ,t = plot3(fig[1,1],msl)
+# Envar 
 
-for i in 1:length(t)
-   t[] = i 
-   sleep(0.01)
-end 
+
+```julia
+rearth  = 20000.0 # set smaller then earth Radius 
+ands = Dataset("envar/2019081803/MXMIN1999+0000.nc")
+fgds = Dataset("envar/2019081800/ICMSHHARM+0003.nc")
+lats = fgds["latitude"][:];
+lons = fgds["longitude"][:]
+geop = fgds["SPECSURFGEOPOTEN"][:,:]
+x,y,z = NCPlots.lonlat2xyz(lons,lats,rearth .+ geop./9.8)
+
+var= "S065TEMPERATURE"
+fg = nomissing(fgds[var][:,:])
+an = nomissing(ands[var][:,:])
+
+fig  = Figure(resolution=(1200,1200))
+ax = Axis3(fig[1,1], viewmode=:fit)
+surface!(ax,x,y,z,color=an-fg,colormap=Reverse(:RdBu),colorrange=(-0.5,0.5))
 ```
+
+![](docs/envar_2019081803.png)
+
+
+
+
+
 
