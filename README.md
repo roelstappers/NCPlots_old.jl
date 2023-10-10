@@ -61,7 +61,7 @@ record(fig,"geop.mp4", 1:100,framerate=10) do ti
 end
 ```
 
-![](docs/geop.mp4)
+![](docs/geop.gif)
 
 ```julia
 ax, surf ,t = plot3(fig[1,1],msl)
