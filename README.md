@@ -3,7 +3,7 @@
 
 Plots NetCdf files using CF convention
 
-[](docs/geop2.gif)
+![](docs/geop2.gif)
 
 
 ## Example 
