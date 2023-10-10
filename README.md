@@ -66,6 +66,16 @@ end
 
 ![](docs/geop.gif)
 
+To color deparatures from zonal mean 
+
+```
+dep = @lift($geop .- mean($geop,dims=1))
+```
+
+
+![](docs/geop_depmean.gif)
+
+
 ```julia
 ax, surf ,t = plot3(fig[1,1],msl)
 
