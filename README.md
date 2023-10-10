@@ -3,6 +3,9 @@
 
 Plots NetCdf files using CF convention
 
+[](docs/geop2.gif)
+
+
 ## Example 
 
 ```julia
@@ -38,11 +41,11 @@ surface2!(ax,lons2,lat2,data2)
 ```
 using NCDatasets, GLMakie, NCPlots
 ds = Dataset("geopotential_2020.nc")
-sz = ds["z"]
+dsz = ds["z"]
 lons = ds["longitude"]
 lats = ds["latitude"]
 x,y,z = NCPlots.lonlat2xyz(lons,lats)
-t = Obserable(1)
+t = Observable(1)
 geop = @lift(nomissing(dsz[:,:,$t]))
 xg = @lift($geop.*x)
 yg = @lift($geop.*y)
