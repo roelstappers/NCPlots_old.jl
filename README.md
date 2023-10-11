@@ -3,7 +3,7 @@
 
 Plots NetCdf files using CF convention
 
-![](docs/marble.png)
+![](docs/marble2.png)
 
 # Example PV era5
 ```

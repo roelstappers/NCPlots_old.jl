@@ -12,12 +12,12 @@ end
 function surface3(var::CommonDataModel.AbstractVariable{T}; kwargs...) where T
     fig = Figure(resolution=(1200,1200))
     pl = PointLight(Point3f(10000,10000,0), RGBf(0.1,0.1,0.1))
-    pl = PointLight(Point3f(0,0,1000000), RGBf(0.1,0.1,0.1))
+    pl = PointLight(Point3f(0,1,3), RGBf(1,1,1))
    
     al = AmbientLight(RGBf(0.2, 0.2, 0.2))
 
     ax = LScene(fig[1,1],show_axis=false; scenekw = (lights = [pl, al],))
-    plt = surface3!(ax,var;invert_normals=true, kwargs...)
+    plt = surface3!(ax,var;invert_normals=true,ssao=true, kwargs...)
     plt.diffuse=0.8
     plt.specular=0.1
     display(fig)
