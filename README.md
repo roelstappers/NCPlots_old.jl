@@ -114,8 +114,16 @@ surface!(ax,x,y,z,color=an-fg,colormap=Reverse(:RdBu),colorrange=(-0.5,0.5))
 
 ![](docs/envar_2019081803.png)
 
+# Plotting data from MEPS at MET Norway
 
 
 
 
+```julia
+archive="/lustre/storeB/immutable/archive/projects/metproduction/MEPS/"
+ds = Dataset("$archive/2023/10/01/meps_det_2_5km_20231001T00Z.nc")
+field = view(ds,hybrid=65,time=1)["air_temperature_ml"]
+surface3!(field)
+```
 
+![](docs/metcoop.png)
