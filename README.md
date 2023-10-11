@@ -3,6 +3,8 @@
 
 Plots NetCdf files using CF convention
 
+![](docs/marble.png)
+
 # Example PV era5
 ```
 ds = Dataset("pv.nc)

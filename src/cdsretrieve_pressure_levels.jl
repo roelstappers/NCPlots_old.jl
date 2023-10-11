@@ -6,8 +6,7 @@ day = 1:10      # use e.g. 1:31 for all days in month
 times = 0:1:23  # use 0:1:23 for all hours in day(s)
 
 # variable = "mean_sea_level_pressure"  # "surface_pressure"
-variable = "geopotential"
-variable = "pv"
+variable = ["geopotential", "pv"]
 
 
 CDSAPI.retrieve(
@@ -23,6 +22,6 @@ CDSAPI.retrieve(
         "year" => "$year",
        #   "area" => area  # leave  out for global fields
     ),
-    "/home/roels/era5/era5_pressure_levels_$(variable).nc"
+    "/home/roel/era5/era5_pressure_levels_$(join(variable,"_")).nc"
 )
 
