@@ -11,8 +11,13 @@ end
 
 function surface3(var::CommonDataModel.AbstractVariable{T}; kwargs...) where T
     fig = Figure(resolution=(1200,1200))
-    ax = LScene(fig[1,1],show_axis=false)
-    plt = surface3!(ax,var; kwargs...)
+    pl = PointLight(Point3f(10000,10000,0), RGBf(0.1,0.1,0.1))
+    al = AmbientLight(RGBf(0.2, 0.2, 0.2))
+
+    ax = LScene(fig[1,1],show_axis=false; scenekw = (lights = [pl, al],))
+    plt = surface3!(ax,var;invert_normals=true, kwargs...)
+    plt.diffuse=0.8
+    plt.specular=0.1
     display(fig)
     fig,ax,plt
 end
@@ -35,7 +40,7 @@ function surface3!(ax,var::CommonDataModel.AbstractVariable{T}; kwargs...) where
     end  
 
     x,y,z = lonlat2xyz(lons,lats)
-    surface!(ax,x,y,z,color=data; kwargs...) 
+    surface!(ax,x,y,z,color=data; specular=1, kwargs...) 
 end
 
 
@@ -63,7 +68,7 @@ end
 """
 x,y,z = lonlat2xyz(lons,lats)
 
-lons, lats can be either vectors or matrices 
+lons, lats can be either vectors or matrices (for LAM models )
 """
 function lonlat2xyz(lons::Vector,lats::Vector)
     x = [cosd(lat)*cosd(lon) for lon in lons, lat  in lats]

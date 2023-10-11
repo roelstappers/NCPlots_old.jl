@@ -15,6 +15,7 @@ surface3!(ax,data["pv"],colormap=:RdBu,colorrange=(-0.02,0.02))
 
 ![](docs/pv500.gif)
 
+![](docs/era5_pv2.png)
 
 # Geopotential movie
 
