@@ -1,8 +1,10 @@
 module NCPlots
 
 using GLMakie, NCDatasets, CommonDataModel
+using PrecompileTools
 
 export surface2!, surface3!, surface3
+
 
 function surface2!(ax,lons,lats,data; kwargs...)
     x,y,z = lonlat2xyz(lons,lats)    
@@ -12,12 +14,12 @@ end
 function surface3(var::CommonDataModel.AbstractVariable{T}; time=Observable(1), kwargs...) where T
     fig = Figure(resolution=(1200,1200),figure_padding=0)
     pl = PointLight(Point3f(10000,10000,0), RGBf(0.1,0.1,0.1))
-    pl = PointLight(Point3f(1,0,3), RGBf(1,1,1))
+    pl = PointLight(Point3f(0,0,1), RGBf(1,1,1))
    
-    al = AmbientLight(RGBf(0.3, 0.3, 0.3))
+    al = AmbientLight(RGBf(0.8, 0.8, 0.8))
 
-    ax = LScene(fig[1,1],show_axis=false; scenekw = (lights = [pl, al],))
-    plt = surface3!(ax,var;time, invert_normals=true, kwargs...)
+    ax = LScene(fig[1,1],show_axis=false) #; scenekw = (lights = [pl, al],))
+    plt = surface3!(ax,var;time) # , invert_normals=true, kwargs...)
     plt.diffuse=0.8
     plt.specular=0.1
     display(fig)
@@ -26,27 +28,23 @@ end
 
 
 function surface3!(ax,var::CommonDataModel.AbstractVariable{T}; time, kwargs...) where T
+
     lons = collect(var["longitude"])
     lats = collect(var["latitude"])
+    invert_normals = isa(lons,Vector) ? true : false   # For global fields invert normals
+    kwargs = (;kwargs..., invert_normals=invert_normals)
     data = @lift(nomissing(collect(var[:,:,$time])))
-    #out = @lift(println($data))    
-    # Add extra lon point to close surface for global fields
-    # could make data a circular buffer instead
-    #if false
+   
     if lons isa Vector  
-        println("appending")
         dlon = lons[2]-lons[1]  # Grid spacing
         if (lons[end] + dlon) % 360 == 0
-            println("now")
             append!(lons, lons[end]+dlon)
             data = @lift(vcat($data,$data[1:1,:]))
         end
     end  
-    #end
-
+   
     x,y,z = lonlat2xyz(lons,lats)
-    surf=surface!(ax,x,y,z,color=data; specular=1, kwargs...) 
-    return surf
+    surface!(ax,x,y,z,color=data; specular=1, kwargs...)     
 end
 
 
@@ -91,4 +89,5 @@ function lonlat2xyz(lons::Matrix,lats::Matrix)
 end
 
 
+include("precompile.jl")
 end
