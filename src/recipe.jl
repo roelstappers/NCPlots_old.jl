@@ -2,7 +2,8 @@
 
 @recipe(DsPlot,var) do scene
     Attributes(
-        colormap = Reverse(:RdBu)
+        colormap = Reverse(:RdBu),
+        colorrange=(-1,1)
     )
 end
 

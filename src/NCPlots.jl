@@ -3,7 +3,7 @@ module NCPlots
 using GLMakie, NCDatasets, CommonDataModel
 using PrecompileTools
 
-export surface2!, surface3!, surface3
+export surface2!, surface3!, surface3, plot!
 include("recipe.jl")
 
 function surface2!(ax,lons,lats,data; kwargs...)
@@ -46,6 +46,26 @@ function surface3!(ax,var::CommonDataModel.AbstractVariable{T}; time, kwargs...)
     x,y,z = lonlat2xyz(lons,lats)
     surface!(ax,x,y,z,color=data; specular=1, kwargs...)     
 end
+
+
+function plot(var::Observable{<:CommonDataModel.AbstractVariable{T}}; kwargs...) where T
+    fig = Figure(resolutio=(1200,1200),figure_padding=0)
+    ax = LScene(fig[1,1],show_axis=false)
+    plt = dsplot!(ax,var; kwargs...)
+
+    title = var[].var.attrib["long_name"]
+    ds = var[].parent
+    dimn = dimnames(ds)[3]
+    ind = var[].indices[3]
+   
+    val = ds[dimn][ind]
+
+    @show kwargs   
+
+    Label(fig[0,1],"$title $dimn=$val",tellwidth=false)
+    # display(fig)
+    return fig,ax,plt     
+end 
 
 
 ## Unfinished level and time should become sliders
