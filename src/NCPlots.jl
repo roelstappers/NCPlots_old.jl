@@ -4,7 +4,7 @@ using GLMakie, NCDatasets, CommonDataModel
 using PrecompileTools
 
 export surface2!, surface3!, surface3
-
+include("recipe.jl")
 
 function surface2!(ax,lons,lats,data; kwargs...)
     x,y,z = lonlat2xyz(lons,lats)    
