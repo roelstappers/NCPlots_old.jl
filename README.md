@@ -3,10 +3,14 @@
 
 Plots NetCdf files using CF convention
 
-![](docs/marble2.png)
+![](docs/src/assets/marble2.png)
 
 
-![](docs/pv_era5_2.gif)
+![](docs/src/assets/pv_era5_2.gif)
+
+![](docs/src/assets/test.mp4)
+
+
 
 # Example PV era5
 ```
@@ -18,13 +22,13 @@ surface3!(ax,data["pv"],colormap=:RdBu,colorrange=(-0.02,0.02))
 ```
 
 
-![](docs/pv500.gif)
+![](docs/src/assets/pv500.gif)
 
-![](docs/era5_pv2.png)
+![](docs/src/assets/era5_pv2.png)
 
 # Geopotential movie
 
-![](docs/geop2.gif)
+![](docs/src/assets/geop2.gif)
 
 
 ## Example 
@@ -42,7 +46,7 @@ ax = LScene(fig[1,1], lons,lats,data)
 surface2!(ax,lons,lats,data) 
 ```
 
-![](east_domain.png)
+![](src/assets/east_domain.png)
 
 ## Multiple plots 
 
@@ -54,7 +58,7 @@ data2 = ds["t"][:,:,65]
 surface2!(ax,lons2,lat2,data2)
 ```
 
-![](east_west_domain.png)
+![](src/assets/east_west_domain.png)
 
 
 ## Animations 
@@ -85,7 +89,7 @@ record(fig,"geop.mp4", 1:100,framerate=10) do ti
 end
 ```
 
-![](docs/geop.gif)
+![](docs/src/assets/geop.gif)
 
 To color deparatures from zonal mean 
 
@@ -94,7 +98,7 @@ dep = @lift($geop .- mean($geop,dims=1))
 ```
 
 
-![](docs/geop_depmean.gif)
+![](docs/src/assets/geop_depmean.gif)
 
 
 # Envar 
@@ -118,7 +122,7 @@ ax = Axis3(fig[1,1], viewmode=:fit)
 surface!(ax,x,y,z,color=an-fg,colormap=Reverse(:RdBu),colorrange=(-0.5,0.5))
 ```
 
-![](docs/envar_2019081803.png)
+![](docs/src/assets/envar_2019081803.png)
 
 # Plotting data from MEPS at MET Norway
 
@@ -132,4 +136,4 @@ field = view(ds,hybrid=65,time=1)["air_temperature_ml"]
 surface3!(field)
 ```
 
-![](docs/metcoop.png)
+![](docs/src/assets/metcoop.png)

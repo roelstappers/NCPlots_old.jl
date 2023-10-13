@@ -16,6 +16,8 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Animations" => "animations.md"
+        "ERA5 data" => "cds.md"
     ],
 )
 

@@ -11,7 +11,7 @@ export plot, plotvar!, addmeridian!, addequator!, lonlat2xyz
 
 # include("recipe.jl")
 
-function plot(var::Observable{<:CommonDataModel.AbstractVariable{T}}, dt::DateTime; kwargs...) where T
+function plot(var::Observable{<:CommonDataModel.AbstractVariable{T}}, dt::Observable{<:DateTime}; kwargs...) where T
 
     fig = Figure(resolution=(1200,1200), figure_padding=0)
     
@@ -19,9 +19,16 @@ function plot(var::Observable{<:CommonDataModel.AbstractVariable{T}}, dt::DateTi
     
     plt = plotvar!(ax,var; kwargs...)    
 
-    addequator!(ax,linewidth=2,color=:green,linestyle=:dash)
-    addmeridian!(ax,linewidth=2,color=:green,linestyle=:dash)
-    update_camsun!(ax,dt)
+    addequator!(ax,linewidth=2,color=:green) # ,linestyle=:dash)
+    addmeridian!(ax,linewidth=2,color=:green) #,linestyle=:dash)
+    @lift(update_camsun!(ax,$dt))
+
+    #eyeposition = @lift(sunpos2($dt)); lookat=Vec3f(0,0,0);
+    # eyeposition = Vec3f(1.0,1,1)
+   # cam3d = cameracontrols(ax.scene)
+   # cam3d.eyeposition = @lift(sunpos2($dt)) # @lift($eyeposition
+   # translate_cam!(ax.scene, eyeposition)
+    # update_cam!(ax.scene, ,eyeposition[],lookat)
     display(fig)
     
     return fig,ax,plt     
@@ -39,11 +46,25 @@ function plotvar!(ax,var::Observable; kwargs...)
     
 end 
 
-function update_camsun!(ax,dt::DateTime,zoom=3)
-    (x,y,z,dx,dy,dz) = xyz(juldate(dt) + 64/86400,2000)
-    eyeposition = Vec3f(zoom*x,zoom*y,zoom*z)   # eyeposition is sun "position" 
-    lookat = Vec3f(0,0,0)  # We always look straight at center of earth
-    Makie.update_cam!(ax.scene, cameracontrols(ax.scene),eyeposition,lookat)
+function sunpos2(dt)
+    lon = Hour(dt)*360.0 /Hour(24) ; lat=20.0
+    x = cosd(lon)*cosd(lat)
+    y = sind(lon)*cosd(lat)
+    z = sind(lat)
+    return Vec3f(3x,3y,3z)
+end 
+     
+
+function update_camsun!(ax,dt,zoom=3.0)
+    # (x,y,z,dx,dy,dz) = xyz(juldate(dt) + 64/86400,2000)
+    lon = Minute(-dt)*360.0 /Hour(24) ; lat=45.0
+    x = cosd(lon)*cosd(lat);  
+    y= sind(lon)*cosd(lat); 
+    z = sind(lat); 
+    eyeposition = Vec3f(zoom*x,zoom*y,zoom*z)  # eyeposition is sun "position" 
+    cam3d = cameracontrols(ax.scene)
+    cam3d.eyeposition[] = eyeposition 
+    update_cam!(ax.scene, cam3d)
 end 
 
 
