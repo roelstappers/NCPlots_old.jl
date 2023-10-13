@@ -3,7 +3,7 @@
 @recipe(DsPlot,var) do scene
     Attributes(
         colormap = Reverse(:RdBu),
-        colorrange=(-1,1)
+        #colorrange=(-1,1)
     )
 end
 
@@ -19,9 +19,10 @@ function Makie.plot!(p::DsPlot{<:Tuple{<:CommonDataModel.AbstractVariable}})
     x,y,z = lonlat2xyz(lons,lats)
     data = @lift(nomissing(collect($var)))
     
+    @show typeof(data)
     surface!(p,x,y,z,color=data,
         colormap = p[:colormap],
-        colorrange = p[:colorrange],
+        # colorrange = p[:colorrange],
         invert_normals = invert_normals,
     )
     @show propertynames(p.model)
