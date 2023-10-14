@@ -1,8 +1,8 @@
 
 
-#```@docs
-#isperiodiclon
-#lonlat2xyz
-#padlon!
-#```
+```@docs
+NCPlots.isperiodiclon
+NCPlots.lonlat2xyz
+NCPlots.padlon!
+```
 

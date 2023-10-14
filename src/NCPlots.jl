@@ -88,9 +88,10 @@ CommonDataModel.dimnames(var::Observable) =  dimnames(var[])
 
 
 """
-x,y,z = lonlat2xyz(lons,lats)
+x,y,z = lonlat2xyz(lons,lats,r=1)
 
 lons, lats can be either vectors or matrices (for LAM models )
+optional specify Matrix r 
 """
 function lonlat2xyz(lons::AbstractVector,lats::AbstractVector)
     x = [cosd(lat)*cosd(lon) for lon in lons, lat  in lats]
@@ -107,6 +108,16 @@ function lonlat2xyz(lons::Matrix,lats::Matrix)
     z = sindlats
     return (x,y,z)
 end
+  
+
+#function lonlat2xyz(lons::AbstractVector,lats::AbstractVector,r::Observable)
+#    println("Observable")
+#    x = @lift($r.*[cosd(lat)*cosd(lon) for lon in lons, lat  in lats])
+#    y = @lift($r.*[cosd(lat)*sind(lon) for lon in lons, lat  in lats])
+#    z = @lift($r.*[sind(lat)  for lon in lons, lat  in lats])
+#    return (x,y,z)
+#end
+ 
 
 """
     isperiodiclon(lons)
@@ -120,16 +131,13 @@ isperiodiclon(lons::Vector) = (lons[end] + (lons[2]-lons[1])) % 360 == 0
 isperiodiclon(lons::Matrix) = false
 
 """
- duplicates first row (element) lons[1] data[1,:] at the end 
- if lons is periodic
+   lonpadview(data::Matrix) 
+   lonpadview(data::Vector) 
+   
+   Returns a view of data with the first row repeated at the end. 
 """
-function padlon!(lons,data::Observable) 
-    if isperiodlon(lons) 
-        dlon = lons[2]-lons[1]  # Grid spacing
-        append!(lons, lons[end]+dlon)
-        data = @lift(vcat($data,$data[1:1,:]))    
-    end
-end 
+lonpadview(data::Matrix) = view(data,[1:size(data)[1]...,1],1:size(data)[2])
+lonpadview(lon::Vector) = view(lon,[1:length(lon)...,1]) 
 
 
 # include("precompile.jl")

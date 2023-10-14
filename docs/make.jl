@@ -6,7 +6,6 @@ using Documenter
 makedocs(;
 #     modules=[NCPlots],
     authors="Roel Stappers <roels@met.no> and contributors",
-    repo="https://github.com/roelstappers/NCPlots.jl/blob/{commit}{path}#{line}",
     sitename="NCPlots.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
@@ -17,8 +16,9 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Animations" => "animations.md",
-        "ERA5 data" => "cds.md",
-        # "References" => "references.md"
+        "Examples" => "example.md",
+        "Getting data" => "cds.md",
+        "API reference" => "references.md"
     ],
 )
 
