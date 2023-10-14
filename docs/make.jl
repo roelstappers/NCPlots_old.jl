@@ -1,10 +1,10 @@
 using NCPlots
 using Documenter
 
-DocMeta.setdocmeta!(NCPlots, :DocTestSetup, :(using NCPlots); recursive=true)
+# DocMeta.setdocmeta!(NCPlots, :DocTestSetup, :(using NCPlots); recursive=true)
 
 makedocs(;
-    modules=[NCPlots],
+#     modules=[NCPlots],
     authors="Roel Stappers <roels@met.no> and contributors",
     repo="https://github.com/roelstappers/NCPlots.jl/blob/{commit}{path}#{line}",
     sitename="NCPlots.jl",
@@ -16,8 +16,9 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Animations" => "animations.md"
-        "ERA5 data" => "cds.md"
+        "Animations" => "animations.md",
+        "ERA5 data" => "cds.md",
+        # "References" => "references.md"
     ],
 )
 
