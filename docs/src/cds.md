@@ -2,19 +2,16 @@
 ## [Getting data](@id getting_data)
 # ERA5 
 
-ERA5 data can be downloaded from the [Climate Data Store](https://cds.climate.copernicus.eu/#!/home)
+ERA5 data can be downloaded from the [Climate Data Store](https://cds.climate.copernicus.eu/#!/home). Requires an [account](https://cds.climate.copernicus.eu/user/register?destination=%2F%23!%2Fhome)
 
-Datasets: 
-
-* ERA5 hourly data on pressure levels from 1940 to present:
-  * [overview](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-pressure-levels?tab=overview)
-  * [form](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-pressure-levels?tab=form)
-
+* [Complete ERA5 global atmospheric reanalysis](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-complete?tab=overview)
+* [ERA5 hourly data on pressure levels from 1940 to present](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-pressure-levels?tab=overview),
+* [ERA5 hourly data on single levels from 1940 to present](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels?tab=overview)
+* [ERA5-Land hourly data from 1950 to present](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=overview)
 
 
-The form link gives an overview of the data available. After making a selection click `Show API request` which will give a Python script to download the data. You can also use [CDSAPI.jl](https://github.com/JuliaClimate/CDSAPI.jl) julia package
+Click `download data` in one of the datasets to get an overview of the available data. After making a selection click `Show API request` which will give a Python script to download the data. You can also use [CDSAPI.jl](https://github.com/JuliaClimate/CDSAPI.jl) julia package
 
-To create the examples in this documentation use
 
 ```julia 
 using CDSAPI 
@@ -50,10 +47,8 @@ CDSAPI.retrieve(
 
 Arctic regional reanalysis (CARRA) can be download from the climate data store 
 
-* Artic regional reanalysis on pressure levels from 1991 to present: 
-  * [overview](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-carra-pressure-levels?tab=overview)
-  * [form](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-carra-pressure-levels?tab=form)
-
+* [Artic regional reanalysis on pressure levels from 1991 to present](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-carra-pressure-levels?tab=overview)
+* [Arctic regional reanalysis on model levels from 1991 to present](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-carra-model-levels?tab=overview)
 
 ## MetCoop
 

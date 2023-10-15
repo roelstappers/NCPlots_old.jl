@@ -1,12 +1,9 @@
 # NCPlots
 
-NCPlots is a Julia package for plotting meteorological data on the sphere. It is mainly used for plotting numerical weather prediction output. It works for both global (ERA5) and limited area domains (CARRA, MetCoop). It should work for any dataset that conforms to the CF convention and implements the `CommonDataModel` interface. 
+NCPlots is a Julia package for plotting (meteorological) data on the sphere. Datasets should conform to the CF convention and implement the [CommonDataModel.jl](https://github.com/JuliaGeo/CommonDataModel.jl) like [NCDatasets](https://github.com/Alexander-Barth/NCDatasets.jl) and [GRIBDatasets](https://github.com/JuliaGeo/GRIBDatasets.jl)  
 
 
-See [Getting data](@ref getting_data) how to obtain ERA5 and CARRA data to recreate the examples in this documentation 
-
-NCPlots uses [Observables](https://docs.makie.org/stable/explanations/nodes/index.html) for interactivity 
-
+See [Getting data](@ref getting_data) how to obtain ERA5 and CARRA data to recreate [examples](@ref Examples)  in this documentation 
 
 ## Installation
 
@@ -70,8 +67,6 @@ for ti = 1:100
    sleep(0.01)
 end 
 ```
-
-See [Animations](@ref Animations) how to control the camera position
 
 
 

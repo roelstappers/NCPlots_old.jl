@@ -1,8 +1,11 @@
 
 
 ```@docs
-NCPlots.isperiodiclon
+NCPlots.plot
+NCPlots.plotvar!
+NCPlots.addequator!
+NCPlots.addmeridian!
 NCPlots.lonlat2xyz
-NCPlots.padlon!
+NCPlots.lonpadview
+NCPlots.isperiodiclon
 ```
-
