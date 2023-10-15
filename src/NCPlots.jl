@@ -3,7 +3,7 @@ module NCPlots
 using Reexport 
 
 @reexport using GLMakie, NCDatasets, CommonDataModel
-using Dates, PrecompileTools
+using Dates #  PrecompileTools
 
 
 export plot, plotvar!, addmeridian!, addequator!, lonlat2xyz
@@ -23,7 +23,7 @@ function plot(var::Observable{<:CommonDataModel.AbstractVariable{T}}; kwargs...)
 
     #addequator!(ax,linewidth=2,color=:black) # ,linestyle=:dash)
     #addmeridian!(ax,linewidth=2,color=:black) #,linestyle=:dash)
-    display(fig)
+#     display(fig)
     return fig,ax,plt     
 end 
 
