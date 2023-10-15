@@ -20,17 +20,13 @@ Then install NCPlots with
 pkg> add NCPlots 
 ```
 
-!!! note 
-    For convenience `NCPlots` reexports `GLMakie` and `NCDatasets` 
-
-
 ## Data requirements 
 
 Variables should only have dimensions `longitude` and `latitude`. If there are additional dimensions create a view
 e.g. for a dataset `ds` that contains a variable `pv` where `pv` in addition to `longitude` and `latitude` also has dimension  `time` do 
 
 ```julia
-julia> using NCPlots
+julia> using NCPlots, GLMakie, NCDatasets
 julia> ds = Dataset("era5_pressure_levels_geopotential_pv.nc")
 julia> pv = view(ds,time=1)["pv"]
 pv (1440 × 721)

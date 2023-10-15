@@ -1,14 +1,10 @@
 module NCPlots
 
-using Reexport 
 
-@reexport using GLMakie, NCDatasets, CommonDataModel
-using Dates #  PrecompileTools
-
+using Makie, CommonDataModel
 
 export plot, plotvar!, addmeridian!, addequator!, lonlat2xyz
 
-# include("recipe.jl")
 
 """
     fig,ax,plt = plot(var)
@@ -47,15 +43,6 @@ function plotvar!(ax,var::Observable; kwargs...)
     surface!(ax,x,y,z,color=data2, invert_normals = invert_normals; kwargs...)
     
 end 
-
-function sunpos2(dt::DateTime)
-    lon = Hour(dt)*360.0 /Hour(24) ; lat=20.0
-    x = cosd(lon)*cosd(lat)
-    y = sind(lon)*cosd(lat)
-    z = sind(lat)
-    return Vec3f(3x,3y,3z)
-end 
-     
 
 """
     addequator!(ax; lat=0, kwargs...) 

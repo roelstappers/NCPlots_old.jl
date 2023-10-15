@@ -6,8 +6,8 @@ These examples use NetCDF files from the `docs/src/assets` directory. For the an
 
 ## ERA5 potential vorticity 
 
-```@example  
-using NCPlots
+```julia   
+using NCPlots, GLMakie, NCDatasets
 ds = Dataset("assets/era5_pv_z_500hPa.nc")
 pv = view(ds, time=1)["pv"]
 fig, ax, plt = plot(pv, colormap=:RdBu, colorrange=(-3e-6,3e-6))
@@ -53,6 +53,15 @@ See plot geopotential height. Color show temperature increments from data assimi
 ![](assets/east_west_domain.png)
 
 ## Metcoop
+
+```julia
+archive="/lustre/storeB/immutable/archive/projects/metproduction/MEPS/"
+ds = Dataset("$archive/2023/10/01/meps_det_2_5km_20231001T00Z.nc")
+field = view(ds,hybrid=65,time=1)["air_temperature_ml"]
+plot(field)
+```
+
+
 
 ![](assets/metcoop.png) 
 
