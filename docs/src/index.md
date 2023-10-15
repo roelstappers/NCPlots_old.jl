@@ -1,9 +1,10 @@
 # NCPlots
 
-NCPlots is a Julia package for plotting (meteorological) data on the sphere. Datasets should conform to the CF convention and implement the [CommonDataModel.jl](https://github.com/JuliaGeo/CommonDataModel.jl) like [NCDatasets](https://github.com/Alexander-Barth/NCDatasets.jl) and [GRIBDatasets](https://github.com/JuliaGeo/GRIBDatasets.jl)  
+NCPlots is a Julia package for plotting (meteorological) data on the sphere. Datasets should conform to the CF convention and implement the [CommonDataModel.jl](https://github.com/JuliaGeo/CommonDataModel.jl) interface like [NCDatasets](https://github.com/Alexander-Barth/NCDatasets.jl) and [GRIBDatasets](https://github.com/JuliaGeo/GRIBDatasets.jl)  
 
 
-See [Getting data](@ref getting_data) how to obtain ERA5 and CARRA data to recreate [examples](@ref Examples)  in this documentation 
+See [here](@ref Examples) for some examples 
+See [Getting data](@ref getting_data) how to obtain ERA5 and CARRA data. 
 
 ## Installation
 
@@ -16,6 +17,7 @@ pkg> registry add https://github.com/Hirlam/HarmonieRegistry.git
 ```
 
 Then install NCPlots with 
+
 ```
 pkg> add NCPlots 
 ```
